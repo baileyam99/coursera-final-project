@@ -1,0 +1,41 @@
+@use '../../styles/colors.scss';
+
+.list-card {
+    min-width: 300px;
+    padding: 1em 10px;
+    margin-right: 1em;
+    background: colors.$bg2;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    .title-button {
+        margin-bottom: 1em;
+    }
+}
+
+.list-card-content {
+    padding: 0 1em;
+}
+
+.add-item-button {
+    cursor: pointer;
+    background-color: colors.$button-card;
+    color: colors.$main-font;
+    width: 100%;
+    height: 35px;
+    padding: 7px 1em;
+    margin: 1em auto;
+    border: 1px solid colors.$bg1;
+    border-radius: 7px;
+}
+
+.add-item-button:hover {
+    background-color: colors.$bg3;
+    font-weight: bold;
+}
+
+.add-item-button:active {
+    background-color: colors.$bg1;
+    transform: scale(0.95);
+}
