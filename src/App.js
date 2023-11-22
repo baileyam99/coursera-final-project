@@ -2,27 +2,70 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { IconContext } from 'react-icons/lib';
+import { Sidebar, SidebarMobile } from './components/Sidebar/Sidebar';
+import { About } from './pages/About/About';
+import { Project } from './pages/Project/Project';
+import { AlertStack } from './components/Alerts/AlertStack';
 import './App.scss';
-import { Sidebar } from './components/Sidebar/Sidebar';
+
+const screens = {
+  small: window.matchMedia("all and (max-device-width: 640px)").matches,
+  tablet: window.matchMedia("all and (min-device-width: 641px) and (max-device-width: 1024px)").matches,
+};
 
 function App() {
-  const [sideBarOpen, setSideBarOpen] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
   const [board, setBoard] = useState({ title: 'My Dashboard', listData: [] });
+  const [alerts, setAlerts] = useState([]);
 
-  const saveBoardHandler = (newBoard) => setBoard(newBoard);
+  const saveBoardHandler = (newBoard) => {
+    setBoard(newBoard);
+  };
+
+  const newAlertHandler = (newAlert) => {
+    const alertList = [...alerts];
+    alertList.push(newAlert);
+    setAlerts(alertList);
+  }
+
+  const closeAlertHandler = (id) => {
+    const alertList = [...alerts];
+    for (let i = 0; i < alertList.length; i++) {
+        if (alertList[i].id === id) {
+          alertList.splice(i, 1); 
+        }
+    }
+    setAlerts(alertList);
+  }
 
   return (
     <Router>
       <main>
-        <IconContext.Provider value={{ style: {transform: 'translateY(2px)' }}}>
-          <Sidebar isOpen={sideBarOpen} changeOpen={() => setSideBarOpen(!sideBarOpen)} />
+        <IconContext.Provider value={{ className: 'translator' }}>
+          {
+            screens.small 
+            ? <SidebarMobile /> 
+            : <Sidebar isOpen={sideBarOpen} changeOpen={() => setSideBarOpen(!sideBarOpen)} />
+          }
           <Routes>
             <Route>
-              <Route path="/" element={<Dashboard sideBarOpen={sideBarOpen} board={board} saveBoard={saveBoardHandler} />} />
-              <Route path="/about" element={<div><h1>ABOUT US</h1></div>} />
-              <Route path="/project" element={<div><h1>PROJECT</h1></div>} />
+              <Route 
+                path="/" 
+                element={
+                  <Dashboard 
+                    sideBarOpen={sideBarOpen} 
+                    board={board} 
+                    saveBoard={saveBoardHandler} 
+                    alert={newAlertHandler}
+                  />
+                }
+              />
+              <Route path="/about" element={<About isOpen={sideBarOpen} alert={newAlertHandler} />} />
+              <Route path="/project" element={<Project isOpen={sideBarOpen} />} />
             </Route>
           </Routes>
+
+          <AlertStack alerts={alerts} close={closeAlertHandler} />
         </IconContext.Provider>
       </main>
     </Router>

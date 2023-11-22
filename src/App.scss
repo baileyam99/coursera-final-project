@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: 'Exo', sans-serif;
   color: colors.$main-font;
+  word-wrap: break-word;
 }
 
 html, body, main {
@@ -88,4 +89,16 @@ img {
 
 input {
   color: #000;
+}
+
+.translator {
+  transform: translateY(2px);
+}
+
+@media only all and (max-width: 640px) {
+  main {
+    display: block;
+    justify-content: center;
+    padding: 0;
+  }
 }

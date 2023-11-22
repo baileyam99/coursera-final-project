@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TfiArrowCircleLeft } from 'react-icons/tfi';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaHammer } from 'react-icons/fa';
-import './Sidebar.scss';
-import { IconContext } from "react-icons/lib";
+import { FaBars } from 'react-icons/fa6';
+import styled from 'styled-components';
+import { IconContext } from 'react-icons/lib';
+import { MdClose } from "react-icons/md";
+import MobileSubMenu from './MobileSubMenu'
 import logo from '../../assets/main-icon.png';
+import './Sidebar.scss';
 
 export function Sidebar(props) {
     const { isOpen, changeOpen } = props;
+    const [ tablet ] = useState(window.matchMedia("all and (min-device-width: 641px) and (max-device-width: 1024px)").matches);
 
     const openerHandler = () => {
         changeOpen();
     }
     return (
-        <section id='sidebar' style={{ width: isOpen ? '15%' : '3%'}} className={isOpen ? '' : 'sidebar-closed'}>
+        <section id='sidebar' style={{ width: isOpen ? '15%' : '3%' }} className={isOpen ? '' : 'sidebar-closed'}>
             <div id='nav-control-div' className='nav-control-div'>
                 <IconContext.Provider value={{ className: isOpen ? 'arrow' : 'flip' }}>
-                    <h1 className="logo-font" style={isOpen ? {} : {background: 'none'}}>
+                    <h1 className="logo-font" style={isOpen ? {} : { background: 'none', width: 'auto' }}>
                         {isOpen 
-                            ? <span><img src={logo} alt='logo.png' /> Task Master </span> 
+                            ? <span>
+                                <img src={logo} alt='logo.png' /> 
+                                {tablet ? 'TM' : 'Task Master'} 
+                            </span> 
                             : ''
                         }
                         <TfiArrowCircleLeft style={{ fontSize: 25 }} onClick={openerHandler} />
@@ -64,5 +72,75 @@ export function Sidebar(props) {
             </div>
             )}
         </section>
+    )
+}
+
+const SidebarMobileData = [
+    {
+        title: 'Dashboard',
+        path: '/',
+        icon: <LuLayoutDashboard id='dashboard-nav' />
+    },
+    {
+        title: 'About Us',
+        path: '/about',
+        icon: <AiOutlineInfoCircle id='about-us-nav' />
+    },
+    {
+        title: 'Project',
+        path: '/project',
+        icon: <FaHammer id='project-nav' />
+    },
+];
+
+export function SidebarMobile() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [visable, setVisible] = useState(true);
+
+    const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+        if (scrolled > 25){
+            setVisible(false)
+        } 
+        else if (scrolled <= 25){
+            setVisible(true)
+        }
+    };
+
+    window.addEventListener('scroll', toggleVisible);
+
+    const openerHandler = () => {
+        setIsOpen(!isOpen);
+    }
+
+    // Styled sidebar wrap div
+    const SidebarWrap = styled.div`
+        width: 100%;
+        overflow: auto;
+    `;
+
+    return (
+        <>
+            <div id="nav-bars" className="nav-bars-div" onClick={openerHandler}>
+                <Link to="#">
+                    <IconContext.Provider value={{ className: visable ? 'bars' : 'bars invisible' }}>
+                        <FaBars />
+                    </IconContext.Provider>
+                </Link>
+            </div>
+            <nav style={{left: isOpen ? '0' : '-100%'}}>
+                <SidebarWrap>
+                    <div className="close-div">
+                        <Link to='#' onClick={openerHandler}>
+                            <MdClose />
+                        </Link>
+                    </div>
+                        
+                    {SidebarMobileData.map((item, index) => {
+                        return <MobileSubMenu item={item} key={index} />;
+                    })}
+                </SidebarWrap>
+            </nav>
+        </>
     )
 }

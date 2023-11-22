@@ -38,3 +38,16 @@
         margin: 10px 2.5px 0 2.5px;
     }
 }
+
+@media only all and (max-width: 640px) {
+    .title-modal-content {
+        width: 300px;
+        height: fit-content;
+        padding: 1.5em;
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+    }
+}

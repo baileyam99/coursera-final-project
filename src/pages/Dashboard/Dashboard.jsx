@@ -8,8 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from '../../assets/main-icon.png';
 import './Dashboard.scss';
 
+const screens = {
+    small: window.matchMedia("all and (max-device-width: 640px)").matches,
+    tablet: window.matchMedia("all and (min-device-width: 641px) and (max-device-width: 1024px)").matches,
+};
+
 export default function Dashboard(props) {
-    const { sideBarOpen, board, saveBoard } = props;
+    const { sideBarOpen, board, saveBoard, alert } = props;
     const [title, setTitle] = useState(board.title);
     const [listData, setListData] = useState(board.listData);
     const [showTitleModal, setShowTitleModal] = useState(false);
@@ -20,15 +25,12 @@ export default function Dashboard(props) {
     }
 
     const handleUpdateList = (updatedCard) => {
-        console.log('updatedCard:', updatedCard)
-        const list = [...listData];
-        for (let i = 0; i < listData.length; i++) {
-            if (list[i].id === updatedCard.id) {
-                list[i] = updatedCard;
-            }
-        }
-        setListData(list);
-    }
+        setListData((prevList) => {
+            return prevList.map((list) => {
+                return list.id === updatedCard.id ? updatedCard : list;
+            });
+        });
+    };    
 
     const handleAddList = () => {
         const listDataLength = listData.length;
@@ -63,24 +65,54 @@ export default function Dashboard(props) {
         setListData([]);
     }
 
+    const sortHandler = (option) => {
+        const alertPayload = {
+            id: uuidv4(),
+            type: 'error',
+            message: `Sorting by '${option}' is not yet available. Please check back soon for an update.`,
+        };
+        alert(alertPayload);
+    }
+
     useEffect(() => {
-        saveBoard({ title, listData })
-    }, [title, listData, saveBoard]);
+        if (board.title !== title || board.listData !== listData) {
+            saveBoard({ title, listData });
+        }
+    }, [board, title, listData, saveBoard]);
+    
 
     return (
-        <section id='dashboard-section' style={{width: sideBarOpen ? '85%' : '97%'}}>
-                <div id='dashboard-header-wrapper'>
+        <section 
+            id='dashboard-section' 
+            style={ 
+                !screens.small 
+                ? { width: sideBarOpen ? '85%' : '97%' } 
+                : {}
+            }
+        >
+            <div id='dashboard-header-wrapper'>
+                {(!screens.tablet && !screens.small) && (
                     <div id='company-wrapper' className='dashboard-company-title'>
                         <img src={logo} alt='task-master-logo.png' width='25px' />
                         <h1 className='logo-font-dash'>Task Master</h1>
                     </div>
-                    <div id='dashboard-title-wrapper' className='dashboard-title' style={{width: sideBarOpen ? '41%' : '49%'}}>
-                        <div id='dashboard-title-button' className='title-button' onClick={() => setShowTitleModal(true)}>
-                            <h1>{title}</h1>
-                        </div>
+                )}
+                <div 
+                    id='dashboard-title-wrapper' 
+                    className='dashboard-title' 
+                    style={
+                        !screens.small 
+                        ? { width: sideBarOpen ? '41%' : '49%' } 
+                        : {}
+                    }
+                >
+                    <div id='dashboard-title-button' className='title-button' onClick={() => setShowTitleModal(true)}>
+                        <h1>{title}</h1>
                     </div>
+                </div>
+                {!screens.small && (
                     <div id='dashboard-actions' className='dashboard-actions'>
-                        <SortDropdown />
+                        <SortDropdown selection={sortHandler} />
                         <button type='button' className='main-button' onClick={handleAddList}>
                             <BsPlusCircle /> Add List
                         </button>
@@ -88,27 +120,38 @@ export default function Dashboard(props) {
                             <RiDeleteBin2Line /> Clear Board
                         </button>
                     </div>
-                </div>
-                <div id='dashboard-wrapper-div' className='dashboard-wrapper-div'>
-                    <div id='dashboard-content' className='dashboard-content'>
-                        {listData.map((list, key) => 
-                            <ListCard 
-                                key={key}
-                                id={list.id} 
-                                order={list.order}
-                                priority={list.priority}
-                                tags={list.tags}
-                                title={list.title} 
-                                itemData={list.items} 
-                                updateCard={handleUpdateList} 
-                            />
-                        )}
-                    </div>
-                </div>
-                {showTitleModal && (
-                    <TitleModal title={title} setTitle={titleModalHandler} />
                 )}
-            
+            </div>
+            {screens.small && (
+                <div id='dashboard-actions' className='dashboard-actions'>
+                    <SortDropdown selection={sortHandler} />
+                    <button type='button' className='main-button' onClick={handleAddList}>
+                        <BsPlusCircle /> Add List
+                    </button>
+                    <button type='button' className='main-button' onClick={clearBoard}>
+                        <RiDeleteBin2Line /> Clear Board
+                    </button>
+                </div>
+            )}
+            <div id='dashboard-wrapper-div' className='dashboard-wrapper-div'>
+                <div id='dashboard-content' className='dashboard-content'>
+                    {listData.map((list) => 
+                        <ListCard 
+                            key={`list-${list.id}}`}
+                            id={list.id} 
+                            order={list.order}
+                            priority={list.priority}
+                            tags={list.tags}
+                            title={list.title} 
+                            itemData={list.items} 
+                            updateCard={handleUpdateList} 
+                        />
+                    )}
+                </div>
+            </div>
+            {showTitleModal && (
+                <TitleModal title={title} setTitle={titleModalHandler} />
+            )}
         </section>
     )
 }

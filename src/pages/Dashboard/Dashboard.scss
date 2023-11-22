@@ -97,3 +97,72 @@
     font-weight: bold;
 }
 
+@media only all and (min-device-width: 641px) and (max-device-width: 1024px) {
+    .dashboard-company-title,
+    .dashboard-title,
+    .dashboard-actions,
+    .dashboard-wrapper-div {
+        padding: 10px;
+    }
+
+    .dashboard-title {
+        margin-left: 0;
+    }
+
+    .dashboard-wrapper-div {
+        padding: 10px;
+        margin-right: 1.5em;
+        margin-bottom: 0;
+        height: calc(100vh - 7.5em);
+        max-height: 70em;
+    }
+
+    .dashboard-actions {
+        label {
+            white-space: nowrap;
+        }
+
+        button {
+            white-space: nowrap;
+        }
+    }
+    
+}
+
+@media only all and (max-width: 640px) {
+    #dashboard-section {
+        float: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #dashboard-header-wrapper {
+        margin: 1em;
+        padding: 0;
+    }
+
+    .dashboard-title {
+        width: 100%;
+        margin: 0;
+    }
+
+    .dashboard-actions {
+        margin: 0 1em 10px 1em;
+        padding: 10px;
+
+        label {
+            display: none;
+        }
+
+        button {
+            white-space: nowrap;
+        }
+    }
+
+    .dashboard-wrapper-div {
+        margin: 1em;
+        margin-bottom: 0;
+        padding: 1em;
+        height: calc(100vh - 11.5em);
+    }
+}

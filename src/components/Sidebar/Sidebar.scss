@@ -1,7 +1,6 @@
 @use '../../styles/colors.scss';
 
 #sidebar {
-    border: 1px solid white;
     margin: 1em 0 1em 1em;
     transition: all .4s ease-in-out;
     background: colors.$bg2;
@@ -86,13 +85,94 @@ a {
     text-decoration: none;
 }
 
-.logo-font span {
-    font-family: 'Pacifico', cursive;
-    font-weight: bold;
-    font-size: 20px;
-    margin-right: 8px;
+.logo-font {
+    width: 8.5em;
+    span {
+        font-family: 'Pacifico', cursive;
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 8px;
+    }
 }
+
 
 hr {
     border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media only all and (min-device-width: 641px) and (max-device-width: 1024px) {
+    #sidebar {
+        max-height: 74.8em;
+    }
+
+    .sidebar-closed {
+        width: 50px !important;
+    }
+
+    .nav-button {
+        font-size: 80%;
+    }
+
+    .logo-font {
+        width: auto;
+        span {
+            margin-right: 15px;
+            img {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .nav-bars-div {
+        transition: all .3s ease-out;
+        height: fit-content;
+        width: fit-content;
+        display: flex;
+        position: fixed;
+        top: 0;
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 10;
+        font-size: 25px;
+        margin: 15px;
+        padding: 0 5px;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 5px;
+
+        &:active {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    }
+
+    .bars {
+        fill: #FFF;
+        transition: all .5s ease-out;
+        transform: translateY(4px);
+        &.invisible {
+            fill: transparent;
+        }
+    }
+
+    nav {
+        background: #3B0B64;
+        width: 250px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: all .3s ease;
+        z-index: 10;
+    }
+
+    .close-div {
+        margin: 1em;
+        font-size: 25px;
+        transition: all .3s ease;
+    }
 }
