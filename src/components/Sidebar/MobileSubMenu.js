@@ -42,7 +42,7 @@ const DropdownLink = styled(Link)`
   }
 `;
 
-// Submenu
+// Component for mobile sidebar
 const SubMenu = ({ item }) => {
 
   // Initialize subnav state
@@ -63,7 +63,8 @@ const SubMenu = ({ item }) => {
             ? item.iconOpened
             : item.subNav
             ? item.iconClosed
-            : null}
+            : null
+          }
         </div>
       </SidebarLink>
       {subnav &&
@@ -74,7 +75,7 @@ const SubMenu = ({ item }) => {
               <SidebarLabel>{item.title}</SidebarLabel>
             </DropdownLink>
           );
-        })}
+      })}
     </>
   );
 };

@@ -8,22 +8,27 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from '../../assets/main-icon.png';
 import './Dashboard.scss';
 
+// Define alternate screen sizes
 const screens = {
-    small: window.matchMedia("all and (max-device-width: 640px)").matches,
-    tablet: window.matchMedia("all and (min-device-width: 641px) and (max-device-width: 1024px)").matches,
+    small: window.matchMedia('all and (max-device-width: 640px)').matches,
+    tablet: window.matchMedia('all and (min-device-width: 641px) and (max-device-width: 1024px)').matches,
 };
 
+// Page for Dashboard UI
 export default function Dashboard(props) {
+    // Get props and initalize state variables
     const { sideBarOpen, board, saveBoard, alert } = props;
     const [title, setTitle] = useState(board.title);
     const [listData, setListData] = useState(board.listData);
     const [showTitleModal, setShowTitleModal] = useState(false);
 
+    // Function to handle changing the title of the board
     const titleModalHandler = (newTitle) => {
         setTitle(newTitle);
         setShowTitleModal(false);
     }
 
+    // Function to handle updating the array of list cards
     const handleUpdateList = (updatedCard) => {
         setListData((prevList) => {
             return prevList.map((list) => {
@@ -32,6 +37,7 @@ export default function Dashboard(props) {
         });
     };    
 
+    // Function to handle creating a new list of items
     const handleAddList = () => {
         const listDataLength = listData.length;
         if (listDataLength === 0) {
@@ -60,11 +66,13 @@ export default function Dashboard(props) {
         }
     }
 
+    // Function to wipe all data from the board
     const clearBoard = () => {
         setTitle('My Dashboard');
         setListData([]);
     }
 
+    // Function to sort lists (non functional - outputs an error message)
     const sortHandler = (option) => {
         const alertPayload = {
             id: uuidv4(),
@@ -74,6 +82,7 @@ export default function Dashboard(props) {
         alert(alertPayload);
     }
 
+    // useEffect to handle auto saving the board when changes are made
     useEffect(() => {
         if (board.title !== title || board.listData !== listData) {
             saveBoard({ title, listData });
@@ -83,58 +92,62 @@ export default function Dashboard(props) {
 
     return (
         <section 
-            id='dashboard-section' 
+            id="dashboard-section" 
             style={ 
                 !screens.small 
                 ? { width: sideBarOpen ? '85%' : '97%' } 
                 : {}
             }
         >
-            <div id='dashboard-header-wrapper'>
+            <div id="dashboard-header-wrapper">
                 {(!screens.tablet && !screens.small) && (
-                    <div id='company-wrapper' className='dashboard-company-title'>
-                        <img src={logo} alt='task-master-logo.png' width='25px' />
-                        <h1 className='logo-font-dash'>Task Master</h1>
+                    <div id="company-wrapper" className="dashboard-company-title">
+                        <img src={logo} alt="task-master-logo.png" width="25px" />
+                        <h1 className="logo-font-dash">Task Master</h1>
                     </div>
                 )}
                 <div 
-                    id='dashboard-title-wrapper' 
-                    className='dashboard-title' 
+                    id="dashboard-title-wrapper" 
+                    className="dashboard-title" 
                     style={
                         !screens.small 
                         ? { width: sideBarOpen ? '41%' : '49%' } 
                         : {}
                     }
                 >
-                    <div id='dashboard-title-button' className='title-button' onClick={() => setShowTitleModal(true)}>
+                    <div 
+                        id="dashboard-title-button" 
+                        className="title-button" 
+                        onClick={() => setShowTitleModal(true)}
+                    >
                         <h1>{title}</h1>
                     </div>
                 </div>
                 {!screens.small && (
-                    <div id='dashboard-actions' className='dashboard-actions'>
+                    <div id="dashboard-actions" className="dashboard-actions">
                         <SortDropdown selection={sortHandler} />
-                        <button type='button' className='main-button' onClick={handleAddList}>
+                        <button className="main-button" onClick={handleAddList}>
                             <BsPlusCircle /> Add List
                         </button>
-                        <button type='button' className='main-button' onClick={clearBoard}>
+                        <button className="main-button" onClick={clearBoard}>
                             <RiDeleteBin2Line /> Clear Board
                         </button>
                     </div>
                 )}
             </div>
             {screens.small && (
-                <div id='dashboard-actions' className='dashboard-actions'>
+                <div id="dashboard-actions" className="dashboard-actions">
                     <SortDropdown selection={sortHandler} />
-                    <button type='button' className='main-button' onClick={handleAddList}>
+                    <button className="main-button" onClick={handleAddList}>
                         <BsPlusCircle /> Add List
                     </button>
-                    <button type='button' className='main-button' onClick={clearBoard}>
+                    <button className="main-button" onClick={clearBoard}>
                         <RiDeleteBin2Line /> Clear Board
                     </button>
                 </div>
             )}
-            <div id='dashboard-wrapper-div' className='dashboard-wrapper-div'>
-                <div id='dashboard-content' className='dashboard-content'>
+            <div id="dashboard-wrapper-div" className="dashboard-wrapper-div">
+                <div id="dashboard-content" className="dashboard-content">
                     {listData.map((list) => 
                         <ListCard 
                             key={`list-${list.id}}`}
@@ -153,5 +166,5 @@ export default function Dashboard(props) {
                 <TitleModal title={title} setTitle={titleModalHandler} />
             )}
         </section>
-    )
-}
+    );
+};

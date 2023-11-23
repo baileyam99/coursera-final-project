@@ -1,12 +1,17 @@
-import React from "react";
+import React from 'react';
+import { Alert } from './Alert';
 import './AlertStack.scss';
-import { Alert } from "./Alert";
 
+// Component to map and stack all alert messages
 export function AlertStack(props) {
+    // Get props
     const { alerts, close } = props;
+
+    // Function to handle closing each alert message
     const closeHandler = (id) => {
         close(id);
     }
+
     return (
         <>
             <div id="alert-stack" className="alert-stack-div">
@@ -21,5 +26,5 @@ export function AlertStack(props) {
                 )}
             </div>
         </>
-    )
-}
+    );
+};
