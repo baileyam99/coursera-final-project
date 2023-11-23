@@ -1,0 +1,15 @@
+@use '../../styles/colors.scss';
+
+#sort-option-label {
+    font-weight: bold;
+}
+
+.sort-dropdown {
+    width: auto;
+    height: 35px;
+    padding: 0 5px;
+    background-color: colors.$bg2;
+    border: 1px solid colors.$bg1;
+    border-radius: 7px;
+    margin: 0 10px 0 5px;
+}

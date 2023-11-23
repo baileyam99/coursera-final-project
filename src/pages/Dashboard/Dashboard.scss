@@ -1,0 +1,168 @@
+@use '../../styles/colors.scss';
+
+#dashboard-section {
+    float: right;
+    transition: all 0.3s ease-in-out;
+}
+
+#dashboard-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 1em 1em 0 10px;
+    height: auto;
+}
+
+.dashboard-company-title,
+.dashboard-title,
+.dashboard-actions,
+.dashboard-wrapper-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    transition: all 0.3 ease;
+}
+
+.dashboard-company-title {
+    width: 250px;
+    height: auto;
+    margin-right: .5em;
+    background: linear-gradient(7deg, colors.$bg3 3.6%, colors.$bg1 50%, colors.$bg3 96.4%);
+}
+
+.dashboard-title {
+    justify-content: left;
+    align-items: left;
+    overflow: auto;
+    margin: 0 .5em;
+}
+
+.dashboard-wrapper-div {
+    width: auto;
+    height: calc(100vh - 7.5em);
+    max-height: 44em;
+    padding: 1em 3em;
+    margin: 1em 1em 1em 10px;
+    overflow: auto;
+    text-wrap: nowrap;
+}
+
+.dashboard-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.title-button {
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    width: 100%;
+    text-wrap: nowrap;
+}
+
+.title-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.title-button:active {
+    background: rgba(255, 255, 255, 0.8);
+    h1 {
+        color: colors.$active-font;
+    }
+}
+
+.title-button h1 {
+    padding: 0 10px;
+}
+
+.dashboard-actions {
+    margin: 0 .5em;
+}
+
+.logo-font-dash {
+    font-family: 'Pacifico', cursive;
+    font-weight: bold;
+}
+
+@media only all and (min-device-width: 641px) and (max-device-width: 1024px) {
+    .dashboard-company-title,
+    .dashboard-title,
+    .dashboard-actions,
+    .dashboard-wrapper-div {
+        padding: 10px;
+    }
+
+    .dashboard-title {
+        margin-left: 0;
+    }
+
+    .dashboard-wrapper-div {
+        padding: 10px;
+        margin-right: 1.5em;
+        margin-bottom: 0;
+        height: calc(100vh - 7.5em);
+        max-height: 70em;
+    }
+
+    .dashboard-actions {
+        label {
+            white-space: nowrap;
+        }
+
+        button {
+            white-space: nowrap;
+        }
+    }
+    
+}
+
+@media only all and (max-width: 640px) {
+    #dashboard-section {
+        float: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #dashboard-header-wrapper {
+        margin: 1em;
+        padding: 0;
+    }
+
+    .dashboard-title {
+        width: 100%;
+        margin: 0;
+    }
+
+    .dashboard-actions {
+        margin: 0 1em 10px 1em;
+        padding: 10px;
+
+        label {
+            display: none;
+        }
+
+        button {
+            white-space: nowrap;
+        }
+    }
+
+    .dashboard-wrapper-div {
+        margin: 1em;
+        margin-bottom: 0;
+        padding: 1em;
+        height: calc(100vh - 11.5em);
+    }
+}
