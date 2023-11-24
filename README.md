@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# React Fundamentals Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was made as part of the [React Fundamentals](https://www.coursera.org/learn/react-fundamentals) Coursera Course. This course is an introductory course that teaches about React and building user interfaces. This specific project was created by Alex Bailey as part of the final assignment for this course. This project does not use any pre-made component libraries. All icons are pulled from the [React Icons](https://react-icons.github.io/react-icons/) Library. The requirements for this project are as follows:
 
-## Available Scripts
+## Step 1: User Interface Design
 
-In the project directory, you can run:
+Create a visually appealing dashboard layout with components like task lists, task cards, filters, and a sidebar for navigation, very similar to task management website used by enterprises like Trello, Click, etc. Design an intuitive interface that enhances usability and productivity.
 
-### `npm start`
+## Step 2: Component State Management
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Utilize React state and props to manage the state of individual components. Use state to store and update task data, including titles, descriptions, due dates, and completion status.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Step 3: React Hooks for Side Effects and Stateful Logic
 
-### `npm test`
+Implement React Hooks like useEffect and useState to handle side effects such as API requests and manage stateful logic like sorting tasks or applying filters.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Step 4: Redux for Advanced State Management (not applicable to this specific project)
 
-### `npm run build`
+Integrate Redux for advanced state management if your application requires it. Redux helps manage global application state, handle asynchronous actions, and provides a centralized store for components to access.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Step 5: DOM Manipulation Techniques
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Enhance user interactions by implementing DOM manipulation techniques such as event listeners. For example, enable drag-and-drop functionality to reorder tasks or utilize tooltips for additional task information.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Step 6: Responsive Design
 
-### `npm run eject`
+Ensure your application is responsive by using CSS frameworks like Bootstrap or Flexbox. Create a layout that adapts to different screen sizes and devices, providing a seamless user experience across desktop, tablet, and mobile devices.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The review criteria are as follows:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Does the application demonstrate a clear understanding of React fundamentals, such as components, props, and state management?
+- Is the application structured in a modular and organized manner, with reusable components and proper component hierarchy?
+- Does the application effectively utilize React Router for handling routing and navigation?
+- Does the application effectively utilize React hooks (e.g., useState, useEffect) for managing component state and side effects?
+- Does the application effectively handle form input and update the component state accordingly?
+- Is the application implementing proper form validation, ensuring that user input meets the required criteria?
+- Does the application provide appropriate user feedback and error messages for form validation errors?
